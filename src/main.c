@@ -31,6 +31,8 @@ void sigint_handler(int signal __attribute__((unused))) {
 
 /**
  * @brief Entry of the program
+ * @param argc arguments count
+ * @param argv arguments values
  */
 int main(int argc, char** argv) {
     int status = 0;
