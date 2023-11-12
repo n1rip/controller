@@ -17,10 +17,12 @@ int csgo_run(void) {
     csgo_offsets_t offsets;  
 
     if (get_process("csgo_linux64", &process) != 0) {
+        DBG_PRINTF("error: failed to find process\n");
         return 1;
     }
 
     if (init_offsets(&process, &offsets) != 0) {
+        DBG_PRINTF("error: failed to initialize offsets\n");
         return 1;
     }
 

@@ -32,21 +32,29 @@ void sigint_handler(int signal __attribute__((unused))) {
 /**
  * @brief Entry of the program
  */
-int main() {
+int main(int argc, char** argv) {
     int status = 0;
 
     if (getuid() != 0) {
+        DBG_PRINTF("error: program must be started as root\n");
+        return 1;
+    }
+
+    if (argc != 2) {
+        DBG_PRINTF("error: invalid syntax, usage: ./%s <path_to_kernel_module>\n", argv[0]);
         return 1;
     }
 
     setup_signal_callback(SIGINT, sigint_handler);
 
-    if (load_module("n1.ko") != 0) {
+    if (load_module(argv[1]) != 0) {
+        DBG_PRINTF("error: failed to load kernel module %s\n", argv[1]);
         return 1;
     }
 
     module_fd = open("/dev/n1", O_RDWR);
     if(module_fd < 0) {
+        DBG_PRINTF("error: failed to link to kernel module\n");
         status = 1;
         goto open_fail;
     }
@@ -57,6 +65,7 @@ int main() {
 
 open_fail:
     if (remove_module("n1") != 0) {
+        DBG_PRINTF("error: failed to remove kernel module\n");
         status = 1;
     }
 
