@@ -1,8 +1,8 @@
 # n1
 
-linux kernel-level external game hack using [n1.ko](https://github.com/eretsym/n1.ko). as this project is for educational purposes, every function has a comment describing their use.
+linux kernel-level external game hack using [n1.ko](https://github.com/eretsym/n1.ko). as this project is for educational purposes, every function has a comment describing their use. this solution has been architectured with modularity in mind: game-specific parts have their own directory and follow a specific flow that can be adapted to any other game.
 
-#### usage
+## usage
 
 1. clone solution
 
