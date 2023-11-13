@@ -5,8 +5,8 @@ DIR="$(realpath -e -- "$DIR";)";
 
 # build kernel module
 cd ${DIR}
-echo "[run-release.sh] building n1.ko..."
-cd ./n1.ko
+echo "[run-release.sh] building kernel module..."
+cd ./module
 bash ./build.sh
 
 # build application
@@ -17,6 +17,6 @@ bash ./build-release.sh
 # copy files
 cd ${DIR}
 echo "[run-release.sh] running..."
-sudo ./build/release/n1 "./n1.ko/build/n1.ko"
+sudo ./build/release/n1 "./module/build/n1.ko"
 
 
