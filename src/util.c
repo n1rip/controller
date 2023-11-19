@@ -1,5 +1,4 @@
 #include <linux/input-event-codes.h>
-#include <curl/curl.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -42,52 +41,6 @@ void generate_keyboard_input(int code, enum n1_keyboard_action_e action) {
     if (action == keyboard_action_actuate || action == keyboard_action_release) {
         generate_input(code, 0, EV_KEY, input_device_keyboard);
     }
-}
-
-/**
- * @brief Write callback used by curl to write the downloaded file to disk
- * @param ptr pointer to the data
- * @param size size of each element
- * @param nmemb number of elements
- * @param stream file stream
- * @return number of bytes written
- */
-size_t write_callback(void *ptr, size_t size, size_t nmemb, FILE *stream) {
-    return fwrite(ptr, size, nmemb, stream);
-}
-
-/**
- * @brief Downloads a file from the internet at the specified url and saves it to the specified path
- * @param url source url, should be a direct link to the file
- * @param path destination path (including file name)
- * @return 0 on success, 1 on failure
- */
-int download_file(const char* url, const char* path) {
-    CURL *curl;
-    FILE *fp;
-    CURLcode res = 1;
-
-    curl = curl_easy_init();
-    if (curl == NULL) {
-        return 1;
-    }
-
-    fp = fopen(path, "wb");
-    if (fp == NULL) {
-        goto download_file_cleanup;
-    }
-
-    curl_easy_setopt(curl, CURLOPT_URL, url);
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
-
-    res = curl_easy_perform(curl);
-    fclose(fp);
-
-download_file_cleanup:
-    curl_easy_cleanup(curl);
-
-    return res == CURLE_OK ? 0 : 1;
 }
 
 /**

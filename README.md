@@ -15,7 +15,7 @@ join our discord at https://discord.gg/PTYAeRdtHR
 2. install dependencies
 
     ```sh
-    sudo zypper in libcurl-devel kernel-devel gcc
+    sudo zypper in kernel-devel gcc make
     ```
 
 3. build and run
