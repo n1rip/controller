@@ -5,8 +5,11 @@
 #include <stdio.h>
 #include <signal.h>
 #include <errno.h>
+#include <sys/time.h>
+#include "../include/globals.h"
 #include "../include/definitions.h"
 #include "../include/linux/ioctl.h"
+#include "../libcfg/include/cfg.h"
 
 /**
  * @brief Generates a mouse input
@@ -229,4 +232,24 @@ int msleep(long msec) {
     } while (res && errno == EINTR);
 
     return res;
+}
+
+/**
+ * @brief Loads config by filename
+ * @param n1_config pointer to the configuration object
+ * @param str path of the config file
+ * @returns 0 on succes, 1 otherwise
+*/
+int load_config(const char* str) {
+    if (cfg_load(str) != 0) {
+        return 1;
+    }
+
+    if (cfg_get_setting("panic_key", &config.panic_key) != 0) {
+        return 1;
+    }
+
+    cfg_dump();
+
+    return 0;
 }

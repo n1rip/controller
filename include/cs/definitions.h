@@ -6,7 +6,7 @@
 /**
  * @brief Contains offsets about game
  */
-typedef struct csgo_offsets_s {
+typedef struct cs_offsets_s {
     uintptr_t client_state;
     uintptr_t client_state_state;
     uintptr_t client_state_maxclients;
@@ -16,4 +16,4 @@ typedef struct csgo_offsets_s {
     uintptr_t nv_entity_flags;
     uintptr_t local_player;
     uintptr_t nv_player_crossid;
-} csgo_offsets_t;
+} cs_offsets_t;

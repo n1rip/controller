@@ -4,19 +4,19 @@
 #include "../../include/util.h"
 #include "../../include/linux/ioctl.h"
 #include "../../include/definitions.h"
-#include "../../include/csgo/definitions.h"
-#include "../../include/csgo/offset_manager.h"
+#include "../../include/cs/definitions.h"
+#include "../../include/cs/offset_manager.h"
 #include "../../include/globals.h"
 
 /**
  * @brief Main execution function for the game hack
  * @return 0 on success, positive value on error
  */
-int csgo_run(void) {
+int cs_run(void) {
     n1_process_t process;
-    csgo_offsets_t offsets;  
+    cs_offsets_t offsets;
 
-    if (get_process("csgo_linux64", &process) != 0) {
+    if (get_process("hl_linux", &process) != 0) {
         DBG_PRINTF("error: failed to find process\n");
         return 1;
     }
@@ -26,7 +26,7 @@ int csgo_run(void) {
         return 1;
     }
 
-    while (get_process("csgo_linux64", &process) == 0 && !exit_signal) {
+    while (get_process("hl_linux", &process) == 0 && !exit_signal) {
         uintptr_t player;
         uint32_t player_flags = 10;
         int32_t crosshair_id = 0;

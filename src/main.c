@@ -13,13 +13,15 @@
 #include "../include/linux/ioctl.h"
 #include "../include/globals.h"
 #include "../include/definitions.h"
-#include "../include/csgo/offset_manager.h"
-#include "../include/csgo/definitions.h"
 #include "../include/util.h"
-#include "../include/csgo/hack.h"
+#include "../include/cs/definitions.h"
+#include "../include/cs/hack.h"
+#include "../include/cs/offset_manager.h"
+#include "../libcfg/include/cfg.h"
 
 int module_fd = 0;
 int exit_signal = 0;
+n1_config_t config = {};
 
 /**
  * @brief Handles interruption signal (ex: ctrl-c)
@@ -61,8 +63,16 @@ int main(int argc, char** argv) {
         goto open_fail;
     }
 
-    status = csgo_run();
+    if (load_config("n1.example.cfg") != 0) {
+        DBG_PRINTF("error: failed to load config: %s\n", cfg_strerror(cfg_errno));
+        status = 1;
+        goto config_fail;
+    }
 
+    // status = cs_run();
+
+config_fail:
+    cfg_free();
     close(module_fd);
 
 open_fail:

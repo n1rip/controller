@@ -101,3 +101,10 @@ typedef struct n1_signature_s {
     size_t offsets_len;
     size_t size;
 } n1_signature_t;
+
+/**
+ * @brief Contains the configuration loaded at runtime by the program
+*/
+typedef struct n1_config_s {
+    long long panic_key; /* 102 (key_home) */
+} n1_config_t;

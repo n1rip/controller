@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../../include/csgo/definitions.h"
+#include "../../include/cs/definitions.h"
 #include "../../include/definitions.h"
 #include "../../include/linux/ioctl.h"
 #include "../../include/util.h"
@@ -140,7 +140,7 @@ uintptr_t find_nv_player_crossid(n1_process_t* proc, n1_region_t* region) {
  * @param offsets Offsets structure (Out)
  * @return 0 on success, 1 on error
  */
-int init_offsets(n1_process_t* process, csgo_offsets_t* offsets) {
+int init_offsets(n1_process_t* process, cs_offsets_t* offsets) {
     n1_region_t client;
     n1_region_t engine;
 
