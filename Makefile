@@ -4,10 +4,10 @@ CFLAGS = -Wall -Wconversion -Wextra
 SRC_FILES := $(shell find . -name '*.c' ! -path './module/*' ! -path './libcfg/tests/*')
 
 debug:
-	gcc -std=gnu2x -g -o n1 $(SRC_FILES) $(CFLAGS) -DDEBUG -fsanitize=address -fno-optimize-sibling-calls -lm
+	clang -std=gnu2x -g -o n1 $(SRC_FILES) $(CFLAGS) -DDEBUG -fsanitize=address -fno-optimize-sibling-calls -lm
 
 release:
-	gcc -std=gnu2x -O3 -o n1 $(SRC_FILES) $(CFLAGS) -lm
+	clang -std=gnu2x -O3 -o n1 $(SRC_FILES) $(CFLAGS) -lm
 
 clean:
 	rm -rf *.o n1
